@@ -4,7 +4,10 @@ import com.cooksnap.backend.domains.dto.requests.RegisterRequest;
 import com.cooksnap.backend.config.JwtService;
 import com.cooksnap.backend.domains.dto.requests.AuthenticationRequest;
 import com.cooksnap.backend.domains.dto.responses.AuthenticationResponse;
+import com.cooksnap.backend.domains.entity.CartItems;
+import com.cooksnap.backend.domains.entity.Carts;
 import com.cooksnap.backend.domains.entity.Token;
+import com.cooksnap.backend.repositories.CartsRepository;
 import com.cooksnap.backend.repositories.TokenRepository;
 import com.cooksnap.backend.domains.TokenType;
 import com.cooksnap.backend.domains.entity.User;
@@ -32,6 +35,7 @@ public class AuthenticationServiceIplm implements AuthenticationService {
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
+  private final CartsRepository cartsRepository;
 
   @Transactional
   public ResponseEntity<?> register(RegisterRequest request) {
@@ -53,6 +57,11 @@ public class AuthenticationServiceIplm implements AuthenticationService {
       var jwtToken = jwtService.generateToken(user);
       var refreshToken = jwtService.generateRefreshToken(user);
       saveUserToken(savedUser, jwtToken);
+
+      Carts carts = Carts.builder()
+              .userId(user.getUserId())
+              .build();
+      cartsRepository.save(carts);
       return ResponseEntity.ok().header("Register").body("Register success");
     }catch (Exception e){
       return ResponseEntity.badRequest().body("Register fail");
