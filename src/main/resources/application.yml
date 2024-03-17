@@ -1,8 +1,10 @@
 spring:
+  config:
+    import: optional:file:.env[.properties]
   datasource:
-      url: jdbc:mysql://localhost:3306/cooksnap_database
-      username: dev
-      password: dev
+      url: jdbc:mysql://ecommerce.cqkog3b87pvl.ap-southeast-1.rds.amazonaws.com:3306/ecom_hcmut
+      username: admin
+      password: huythai3105
       driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -19,7 +21,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: unidyteam@gmail.com
-    password: gsne smbm pkhi qgws
+    password: qmax kecv fcul cfuw
     properties:
       mail:
         smtp:

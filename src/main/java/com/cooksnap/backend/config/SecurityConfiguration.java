@@ -13,16 +13,15 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
-import static com.unidy.backend.domains.role.Permission.ADMIN_CREATE;
-import static com.unidy.backend.domains.role.Permission.ADMIN_DELETE;
-import static com.unidy.backend.domains.role.Permission.ADMIN_READ;
-import static com.unidy.backend.domains.role.Permission.ADMIN_UPDATE;
-import static com.unidy.backend.domains.role.Permission.MANAGER_CREATE;
-import static com.unidy.backend.domains.role.Permission.MANAGER_DELETE;
-import static com.unidy.backend.domains.role.Permission.MANAGER_READ;
-import static com.unidy.backend.domains.role.Permission.MANAGER_UPDATE;
-import static com.unidy.backend.domains.role.Role.ADMIN;
-import static com.unidy.backend.domains.role.Role.MANAGER;
+import static com.cooksnap.backend.domains.role.Permission.ADMIN_CREATE;
+import static com.cooksnap.backend.domains.role.Permission.ADMIN_DELETE;
+import static com.cooksnap.backend.domains.role.Permission.ADMIN_READ;
+import static com.cooksnap.backend.domains.role.Permission.ADMIN_UPDATE;
+import static com.cooksnap.backend.domains.role.Permission.MANAGER_CREATE;
+import static com.cooksnap.backend.domains.role.Permission.MANAGER_DELETE;
+import static com.cooksnap.backend.domains.role.Permission.MANAGER_READ;
+import static com.cooksnap.backend.domains.role.Permission.MANAGER_UPDATE;
+import static com.cooksnap.backend.domains.role.Role.ADMIN;
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
@@ -57,7 +56,6 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
-                                .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
                                 .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
                                 .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_CREATE.name())
                                 .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name(), MANAGER_UPDATE.name())

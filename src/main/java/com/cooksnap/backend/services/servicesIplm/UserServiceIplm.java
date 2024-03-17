@@ -30,8 +30,8 @@ public class UserServiceIplm implements UserService {
         information.setUserId(user.getUserId());
         information.setFullName(user.getFullName());
         information.setDayOfBirth(user.getDayOfBirth());
-        information.setHeight(user.getHeight());
-        information.setWeight(user.getWeight());
+        information.setAddress(user.getAddress());
+        information.setPhone(user.getPhone());
         information.setRole(user.getRole());
         return information ;
     }
@@ -46,17 +46,18 @@ public class UserServiceIplm implements UserService {
         return ResponseEntity.ok().body(new SuccessResponse("Đổi mật khẩu mới thành công"));
     }
 
-    public void changePassword(ChangePasswordRequest request, Principal connectedUser) {
+    public ResponseEntity<?> changePassword(ChangePasswordRequest request, Principal connectedUser) {
 
         var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
 
         // check if the current password is correct
         if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
-            throw new IllegalStateException("Wrong password");
+           return ResponseEntity.badRequest().body(new ErrorResponseDto("Wrong password"));
         }
         // check if the two new passwords are the same
         if (!request.getNewPassword().equals(request.getConfirmationPassword())) {
-            throw new IllegalStateException("Password are not the same");
+            return ResponseEntity.badRequest().body(new ErrorResponseDto("Password are not the same"));
+
         }
 
         // update the password
@@ -64,5 +65,6 @@ public class UserServiceIplm implements UserService {
 
         // save the new password
         repository.save(user);
+        return ResponseEntity.ok().body(new SuccessResponse("Change password success"));
     }
 }

@@ -1,6 +1,6 @@
 package com.cooksnap.backend.domains.entity;
 
-import com.unidy.backend.domains.role.Role;
+import com.cooksnap.backend.domains.role.Role;
 import jakarta.persistence.*;
 
 import java.util.Collection;
@@ -30,14 +30,14 @@ public class User implements UserDetails {
   @Column(name = "full_name")
   private String fullName;
 
+  @Column(name = "address")
+  private String address;
+
   @Column(name = "day_of_birth")
   private Date dayOfBirth;
 
-  @Column(name = "height")
-  private float height;
-
-  @Column(name = "weight")
-  private float weight;
+  @Column(name = "phone")
+  private String phone;
 
   @Column(name = "email")
   private String email;

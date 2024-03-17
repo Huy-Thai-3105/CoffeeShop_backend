@@ -1,7 +1,7 @@
 package com.cooksnap.backend.domains.dto.responses;
 
 
-import com.unidy.backend.domains.role.Role;
+import com.cooksnap.backend.domains.role.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +17,7 @@ public class UserInformationRespond {
     private int userId;
     private String fullName;
     private Date dayOfBirth;
-    private float height;
-    private float weight;
+    private String address;
+    private String phone;
     private Role role;
 }

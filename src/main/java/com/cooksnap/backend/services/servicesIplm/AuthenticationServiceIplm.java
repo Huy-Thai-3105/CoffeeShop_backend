@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.cooksnap.backend.services.servicesInterface.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,7 @@ public class AuthenticationServiceIplm implements AuthenticationService {
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
 
+  @Transactional
   public ResponseEntity<?> register(RegisterRequest request) {
     try {
       var findUser = repository.findByEmail(request.getEmail());
@@ -41,8 +43,8 @@ public class AuthenticationServiceIplm implements AuthenticationService {
       var user = User.builder()
               .fullName(request.getFullName())
               .dayOfBirth(request.getDayOfBirth())
-              .weight(0)
-              .height(0)
+              .address(request.getAddress())
+              .phone(request.getPhone())
               .email(request.getEmail())
               .password(passwordEncoder.encode(request.getPassword()))
               .role(request.getRole())

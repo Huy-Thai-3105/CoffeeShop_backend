@@ -10,5 +10,5 @@ public interface UserService {
     UserInformationRespond getUserInformation(Principal connectedUser);
     ResponseEntity<?> newPassword(ChangePasswordRequest request, Principal connectedUser);
 
-    void changePassword(ChangePasswordRequest request, Principal connectedUser);
+    ResponseEntity<?>  changePassword(ChangePasswordRequest request, Principal connectedUser);
 }
