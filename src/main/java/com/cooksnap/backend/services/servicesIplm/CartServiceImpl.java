@@ -51,5 +51,17 @@ public class CartServiceImpl implements CartService {
         }
     }
 
+    @Override
+    public ResponseEntity<?> deleteItem(Principal connectedUser, int itemId) {
+        try {
+            var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+            Carts cart = cartsRepository.findCartsByUserId(user.getUserId());
+            cartItemsRepository.deleteCartItemsByProductId(itemId);
+            return ResponseEntity.ok().body(new SuccessResponse("delete success"));
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(new ErrorResponseDto(e.toString()));
+        }
+    }
+
 
 }

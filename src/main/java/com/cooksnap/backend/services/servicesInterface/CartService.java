@@ -10,4 +10,6 @@ public interface CartService {
     ResponseEntity<?> addItemToCart(Principal connectedUser, CartItemsRequest request);
 
     ResponseEntity<?> getItems(Principal connectedUser);
+
+    ResponseEntity<?> deleteItem(Principal connectedUser, int itemId);
 }

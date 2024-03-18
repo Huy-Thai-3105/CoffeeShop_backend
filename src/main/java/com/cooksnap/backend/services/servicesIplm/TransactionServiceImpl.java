@@ -30,6 +30,7 @@ import java.util.*;
 public class TransactionServiceImpl implements TransactionService {
     private final Environment environment;
     private final UserRepository userRepository;
+    private final PaymentRepository paymentRepository;
     public ResponseEntity<?> executeTransaction (Principal connectedUser, Long totalAmount, int organizationUserId, int campaignId) throws NoSuchAlgorithmException, InvalidKeyException {
         var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
         String jsonData = "{\"campaignId\":" + campaignId + ",\"organizationUserId\":" + organizationUserId + "}";
@@ -92,7 +93,17 @@ public class TransactionServiceImpl implements TransactionService {
     @Transactional
     public void handleTransaction(MomoWebHookRequest momoResponse) {
         try {
+            if (momoResponse.getResultCode().equals(0)) {
+                Payment newPayment = Payment.builder()
+                        .paymentType(momoResponse.getPaymentOption())
+                        .payTime(new Date())
+                        .creditId(1)
+                        .amount(Math.toIntExact(momoResponse.getAmount()))
+                        .isDone(true)
+                                .build();
+                paymentRepository.save(newPayment);
                 System.out.println("Log Transaction Successful");
+            }
         } catch (Exception e){
             System.out.println(e.toString());
         }

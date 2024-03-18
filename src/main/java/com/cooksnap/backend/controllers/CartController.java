@@ -17,10 +17,20 @@ import java.security.Principal;
 public class CartController {
     private final CartService cartService;
 
-    @PostMapping("/add-item-to-cart")
+    @PostMapping("/add-item")
     public ResponseEntity<?> addItem(Principal connectedUser, @RequestBody CartItemsRequest request){
         try {
             return cartService.addItemToCart(connectedUser,request);
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body("Send email fail");
+        }
+    }
+
+
+    @DeleteMapping("/delete-item")
+    public ResponseEntity<?> deleteItem(Principal connectedUser, @RequestParam("productId") int productId){
+        try {
+            return cartService.deleteItem(connectedUser,productId);
         } catch (Exception e){
             return ResponseEntity.badRequest().body("Send email fail");
         }
