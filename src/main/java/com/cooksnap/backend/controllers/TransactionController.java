@@ -23,12 +23,12 @@ public class TransactionController {
     private final TransactionService transactionService;
 
     @PostMapping("")
-    public ResponseEntity<?> donation (Principal connectedUser, @RequestBody CreateTransactionRequest createTransactionRequest) throws NoSuchAlgorithmException, InvalidKeyException {
+    public ResponseEntity<?> donation (@RequestBody CreateTransactionRequest createTransactionRequest) throws NoSuchAlgorithmException, InvalidKeyException {
         return transactionService.executeTransaction(
-            connectedUser,
+                createTransactionRequest.getUserName(),
+            createTransactionRequest.getItems(),
             createTransactionRequest.getAmounts(),
-            createTransactionRequest.getOrganizationUserId(),
-            createTransactionRequest.getCampaignId()
+                createTransactionRequest.getRedirectURL()
         );
     }
 

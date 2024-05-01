@@ -8,7 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
 
 public interface TransactionService {
-    ResponseEntity<?> executeTransaction (Principal connectedUser, Long totalAmount, int organizationUserId, int campaignId) throws NoSuchAlgorithmException, InvalidKeyException;
+    ResponseEntity<?> executeTransaction (String userName, String items, Long totalAmount, String upinURL) throws NoSuchAlgorithmException, InvalidKeyException;
 
     void handleTransaction(MomoWebHookRequest momoResponse) throws NoSuchAlgorithmException, InvalidKeyException;
 }

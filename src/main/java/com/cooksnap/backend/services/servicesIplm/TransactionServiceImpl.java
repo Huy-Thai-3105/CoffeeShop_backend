@@ -31,9 +31,8 @@ public class TransactionServiceImpl implements TransactionService {
     private final Environment environment;
     private final UserRepository userRepository;
     private final PaymentRepository paymentRepository;
-    public ResponseEntity<?> executeTransaction (Principal connectedUser, Long totalAmount, int organizationUserId, int campaignId) throws NoSuchAlgorithmException, InvalidKeyException {
-        var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
-        String jsonData = "{\"campaignId\":" + campaignId + ",\"organizationUserId\":" + organizationUserId + "}";
+    public ResponseEntity<?> executeTransaction (String userName, String items, Long totalAmount, String upinURL) throws NoSuchAlgorithmException, InvalidKeyException {
+        String jsonData = "{\"campaignId\":" + '1' + ",\"organizationUserId\":" + '1' + "}";
         String base64Data = encodeBase64(jsonData);
 
         SimpleDateFormat outputFormat = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -43,10 +42,10 @@ public class TransactionServiceImpl implements TransactionService {
         String ipnURL = environment.getProperty("IPN_URL");
         String url = "https://test-payment.momo.vn:443/v2/gateway/api/create";
         String extraData = base64Data;
-        String orderId = partnerCode +  outputFormat.format(new Date()) + "-" + user.getUserId();
-        String orderInfo = user.getFullName() + " donation";
+        String orderId = partnerCode +  outputFormat.format(new Date()) + "-" + 1;
+        String orderInfo = userName + " thanh toán đơn hàng";
         String requestId = partnerCode + outputFormat.format(new Date());
-        String redirectURL = "https://www.facebook.com";
+        String redirectURL = upinURL;
 
         try {
 //            Optional<Organization> organization = organizationRepository.findByUserId(organizationUserId);

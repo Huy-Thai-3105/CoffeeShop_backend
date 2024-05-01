@@ -7,7 +7,8 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class CreateTransactionRequest {
+    String userName;
+    String items;
     Long amounts;
-    int campaignId;
-    int organizationUserId;
+    String redirectURL;
 }
