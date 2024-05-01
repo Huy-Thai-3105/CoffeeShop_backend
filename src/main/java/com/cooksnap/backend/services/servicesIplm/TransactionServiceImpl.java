@@ -45,7 +45,7 @@ public class TransactionServiceImpl implements TransactionService {
         String orderId = partnerCode +  outputFormat.format(new Date()) + "-" + 1;
         String orderInfo = userName + " thanh toán đơn hàng";
         String requestId = partnerCode + outputFormat.format(new Date());
-        String redirectURL = "https://ecom-bku.vercel.app";
+        String redirectURL = "https://www.google.com/";
 
         try {
 //            Optional<Organization> organization = organizationRepository.findByUserId(organizationUserId);
