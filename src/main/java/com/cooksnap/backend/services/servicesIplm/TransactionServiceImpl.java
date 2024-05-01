@@ -31,7 +31,7 @@ public class TransactionServiceImpl implements TransactionService {
     private final Environment environment;
     private final UserRepository userRepository;
     private final PaymentRepository paymentRepository;
-    public ResponseEntity<?> executeTransaction (String userName, String items, Long totalAmount, String upinURL) throws NoSuchAlgorithmException, InvalidKeyException {
+    public ResponseEntity<?> executeTransaction (String userName, String items, Long totalAmount, String redirectURL) throws NoSuchAlgorithmException, InvalidKeyException {
         String jsonData = "{\"campaignId\":" + '1' + ",\"organizationUserId\":" + '1' + "}";
         String base64Data = encodeBase64(jsonData);
 
@@ -45,7 +45,6 @@ public class TransactionServiceImpl implements TransactionService {
         String orderId = partnerCode +  outputFormat.format(new Date()) + "-" + 1;
         String orderInfo = userName + " thanh toán đơn hàng";
         String requestId = partnerCode + outputFormat.format(new Date());
-        String redirectURL = "https://www.google.com/";
 
         try {
 //            Optional<Organization> organization = organizationRepository.findByUserId(organizationUserId);
